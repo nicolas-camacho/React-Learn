@@ -1,4 +1,6 @@
 import React from 'react';
+import Todos from './components/Todos';
+
 import './App.css';
 
 /* function Helloworld(props) {
@@ -7,42 +9,40 @@ import './App.css';
   );
 } */
 
-class Helloworld extends React.Component {
+class App extends React.Component {
 
   state = {
-    show: true
+    todos: [
+      {
+        id: 1,
+        title: 'Take out the trash',
+        completed: false
+      },
+      {
+        id: 2,
+        title: 'Dinner with wife',
+        completed: true
+      },
+      {
+        id: 3,
+        title: 'Meeting with friends',
+        completed: false
+      }
+    ]
   }
 
-  ocultar = () => {
-    this.setState({show: !this.state.show})
+  markComplete = (e) => {
+    console.log("Hello")
   }
 
   render() {
-    if (this.state.show) {
-      return (
-        <div id="hello">
-          <h1>
-            {this.props.text}
-            <button onClick={this.ocultar}>Ocultar</button>
-          </h1>
-        </div>
-      )
-    }else{
-      return <h1>
-        There are no elements
-        <button onClick={this.ocultar}>Ocultar</button>
-      </h1> 
-    }
+    console.log(this.state.todos)
+    return (
+      <div>
+        <Todos todos={this.state.todos} markComplete={this.markComplete} />
+      </div>
+    );
   }
-}
-
-function App() {
-  return (
-    <div>
-      This is my component: 
-      <Helloworld text="Hello Nicolas"/>
-    </div>
-  );
 }
 
 export default App;
