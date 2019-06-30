@@ -1,5 +1,7 @@
 import React from 'react';
+import Header from './components/layout/Header'
 import Todos from './components/Todos';
+import AddTodo from './components/AddTodo'
 
 import './App.css';
 
@@ -31,15 +33,29 @@ class App extends React.Component {
     ]
   }
 
-  markComplete = (e) => {
-    console.log("Hello")
+  markComplete = (id) => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed
+        }
+        return todo;
+      })
+    });
+  }
+
+  delTodo = (id) => {
+    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
   }
 
   render() {
-    console.log(this.state.todos)
     return (
       <div>
-        <Todos todos={this.state.todos} markComplete={this.markComplete} />
+        <div className="container">
+          <Header />
+          <AddTodo />
+          <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
+        </div>
       </div>
     );
   }
